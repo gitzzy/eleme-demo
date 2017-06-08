@@ -43,7 +43,7 @@
                   <span class="name">{{ rating.username }}</span>
                   <img class="avatar" width="12" height="12" :src="rating.avatar">
                 </div>
-                <div class="time">{{ rating.rateTime }}</div>
+                <div class="time">{{ rating.rateTime | formatDate }}</div>
                 <p class="text">
                   <i
                     :class="{'icon-thumb_up': rating.rateType===0, 'icon-thumb_down': rating.rateType===1}"></i>{{rating.text}}
@@ -64,6 +64,7 @@
   import cartControl from '../cartControl/cartControl';
   import split from '../split/split';
   import ratingSelect from '../ratingSelect/ratingSelect';
+  import {formatDate} from '../../common/js/date';
 
   const ALL = 2;
 
@@ -132,6 +133,12 @@
         } else {
           return type === this.selectType;
         }
+      }
+    },
+    filters: {
+      formatDate(time) {
+        let date = new Date(time);
+        return formatDate(date, 'yyyy-MM-dd hh:mm');
       }
     },
     components: {
